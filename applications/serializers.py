@@ -16,6 +16,19 @@ class ApplicationSerializer(serializers.ModelSerializer):
         ]
         read_only_fields = ["applied_at"]
 
+    def create(self, validated_data):
+        application = super().create(validated_data)
+
+        Notification.objects.create(
+            user=application.job.employer.user,
+            message=(
+                f"New application received for "
+                f"'{application.job.title}'."
+            ),
+        )
+
+        return application
+
     def update(self, instance, validated_data):
         old_status = instance.status
         new_status = validated_data.get("status", old_status)
