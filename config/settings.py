@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "accounts",
     "jobs",
     "applications",
+    "notifications",
 ]
 
 MIDDLEWARE = [
@@ -130,3 +131,6 @@ MAILERS = {
         'BACKEND': 'django.core.mail.backends.console.EmailBackend',
     },
 }
+
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"
